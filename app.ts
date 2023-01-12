@@ -58,7 +58,7 @@ app.post('/api/puppies', (req: Request, res: Response) => {
   birthDate: req.body?.birthDate
  };
  puppies.push(newPuppy);
- return res.setHeader('Location', `/api/puppies/${newId}`).status(200).json(newPuppy);
+ return res.setHeader('Location', `/api/puppies/${newId}`).status(200).json(puppies);
 });
 
 app.put('/api/puppies/:id', (req: Request, res: Response) => {
@@ -78,7 +78,7 @@ app.delete('/api/puppies/:id', (req: Request, res: Response) => {
   puppies.splice(puppies.findIndex((pup: Puppy) => pup.id === Number(req.params.id)), 1);
   res
     .status(200)
-    .send();
+    .send(puppies);
 });
 
 export default app;
