@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "compile": "tsc *.ts --outDir js",
+    "start": "npx ts-node server.ts",
     "compile:watch": "npm run compile -- --watch *.ts",
     "test": "jest --watch --silent"
   },
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/appliedtechnology/addons-ts-lab-puppiesApi#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.3"
   },
   "devDependencies": {

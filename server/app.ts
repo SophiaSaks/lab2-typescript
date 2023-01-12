@@ -1,5 +1,8 @@
 import express from 'express';
 import { Request, Response, Application } from 'express';
+const cors = require("cors");
+
+
 
 interface Puppy {
   id: number,
@@ -41,6 +44,8 @@ const newId = Date.now();
 const app: Application = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 app.get('/api/puppies', (_req: Request, res: Response) => {
   return res.status(200).json(puppies);
