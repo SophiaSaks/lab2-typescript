@@ -1,5 +1,6 @@
 import './AddPuppy.css';
-import { useRef, MouseEvent } from 'react';
+import { useRef, MouseEvent, useState } from 'react';
+import axios from 'axios';
 
 const AddPuppy = () => {
     const puppyBreed = useRef<HTMLInputElement>(null);
@@ -8,14 +9,25 @@ const AddPuppy = () => {
 
     const addPuppyHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
+        return axios({
+          method: 'post',
+          url: 'http://localhost:3001/api/puppies',
+          headers: {'Content-Type': 'application/json'}, 
+          data: JSON.stringify({
+            id: Date.now(),
+            breed: puppyBreed.current!.value,
+            name: puppyName.current!.value,
+            birthDate: puppyBirthDate.current!.value
+          })
+        });
     }
 
   return (
 
     <div className="AddPuppy">
-        <form action="">
+        <form action="" >
         <label>Breed</label>
-        <input name="breed" type="text" className="AddPuppyBreed" placeholder="Breed" ref={puppyBreed}/>
+        <input name="breed"  type="text" className="AddPuppyBreed" placeholder="Breed" ref={puppyBreed}/>
         <label>Name</label>
         <input name="name" type="text" className="AddPuppyName" placeholder="Name" ref={puppyName}/>
         <label>Birth Date</label>
