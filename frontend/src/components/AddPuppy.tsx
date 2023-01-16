@@ -2,24 +2,38 @@ import './AddPuppy.css';
 import { useRef, MouseEvent, useState } from 'react';
 import axios from 'axios';
 
-const AddPuppy = () => {
+interface PuppyType {
+    id: number,
+    breed: string,
+    name: string,
+    birthDate: string, 
+  }
+
+type PuppyProps = {
+  puppyList: PuppyType[],
+  setPuppyList: (puppy: PuppyType[]) => void;
+}
+
+const AddPuppy: React.FC<PuppyProps> = ({puppyList, setPuppyList}): JSX.Element => {
     const puppyBreed = useRef<HTMLInputElement>(null);
     const puppyName = useRef<HTMLInputElement>(null);
     const puppyBirthDate = useRef<HTMLInputElement>(null);
 
     const addPuppyHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        return axios({
-          method: 'post',
-          url: 'http://localhost:3001/api/puppies',
-          headers: {'Content-Type': 'application/json'}, 
-          data: JSON.stringify({
+        const newPuppy: PuppyType = {
             id: Date.now(),
             breed: puppyBreed.current!.value,
             name: puppyName.current!.value,
             birthDate: puppyBirthDate.current!.value
-          })
+        }
+        axios({
+          method: 'post',
+          url: 'http://localhost:3001/api/puppies',
+          headers: {'Content-Type': 'application/json'}, 
+          data: JSON.stringify(newPuppy)
         });
+        return setPuppyList([...puppyList, newPuppy]);
     }
 
   return (

@@ -35,7 +35,7 @@ const List: React.FC<PuppyProps> = ({puppyList}): JSX.Element => {
 		    </section> */}
         <ul>
         {
-        puppyList.map((pup: PuppyType) => <li className="puppyList__name" key={pup.id} onClick={detailsHandler}>{pup.name}<div className='dumbass'><p>Breed: {pup.breed}</p><p> Birth Date:  {pup.birthDate}</p></div></li>)
+        puppyList.map((pup: PuppyType) => <li className="puppyList__name" key={pup.id} onClick={detailsHandler}>{pup.name}<div className='puppyList__info'><p>Breed: {pup.breed}</p><p> Birth Date:  {pup.birthDate}</p></div></li>)
         }
         </ul>
 

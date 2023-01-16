@@ -5,15 +5,20 @@ import { useState, useEffect } from 'react';
 import List from './components/List';
 import AddPuppy from './components/AddPuppy';
 
+interface PuppyType {
+  id: number,
+  breed: string,
+  name: string,
+  birthDate: string, 
+}
+
 function App() {
-  const [inputText, setInputText] = useState(null);
-  const [puppyList, setPuppyList] = useState([]);
+  const [puppyList, setPuppyList] = useState<PuppyType[]>([]);
 
   const getPuppies = () => {
     axios.get('http://localhost:3001/api/puppies')
     .then(res => {
-      console.log(res)
-      setPuppyList(res.data)
+      setPuppyList(res.data);
   })
   .catch(err => {
       console.log(err)
@@ -43,8 +48,8 @@ function App() {
 
   return (
     <div className="App">
-      <List puppyList={puppyList}/>
-      <AddPuppy />
+      <List puppyList={puppyList} />
+      <AddPuppy puppyList={puppyList} setPuppyList={setPuppyList} />
       
     </div>
   );
